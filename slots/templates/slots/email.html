@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>Bonjour {{ form.first_name}} {{ form.last_name }},</p>
+
+    <p>Merci pour votre inscription à la journée Portes Ouvertes du 6 mars 2021 de la Crèche Parentale Farandole.</p>
+    <p>Vous êtes inscrit·e·s pour le créneau de <b>{{ form.slot.description }}</b>.</p>
+    <p>Suivant la situation sanitaire, le rendez-vous sera à la crèche (105 rue Alexandre Dumas, 75020 Paris) ou nous vous enverrons un lien pour un rendez-vous à distance par visio-conférence. Les détails vous seront envoyés par email quelques jours avant.</p>
+    <p>Pour toutes questions relatives aux inscriptions, merci de nous contacter par email à l'adresse <a href="mailto:inscription@crechefarandole.com">inscription@crechefarandole.com</a></p>
+
+    <p>Pour modifier votre réservation:<br>
+      <a href="{{ path }}{{ form.id }}/">{{ path }}{{ form.id }}/</a></p>
+
+    <p>Pour annuler et supprimer votre réservation:<br>
+      <a href="{{ path }}{{ form.id }}/delete">{{ path }}{{ form.id }}/delete</a></p>
+
+    <p>Au plaisir de vous rencontrer,<br>
+      La Crèche Farandole
+    </p>
+  </body>
+</html>
