@@ -1,0 +1,6 @@
+- __pycache__
++ /manage.py
++ /requirements.txt
++ /settings.json
++ /slots/***
++ /website/***
