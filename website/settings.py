@@ -23,6 +23,9 @@ with open(BASE_DIR / 'settings.json') as f:
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
+# SECURITY WARNING: keep the uuid used in production secret!
+UUID = SECRETS['UUID']
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = SECRETS['SECRET_KEY']
 
@@ -32,6 +35,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['reservation.crechefarandole.com', '127.0.0.1']
 
 # Application definition
+
+DATE = SECRETS['DATE']
 
 INSTALLED_APPS = [
     'slots',
@@ -52,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'slots.middleware.RequestExposerMiddleware'
 ]
 
 ROOT_URLCONF = 'website.urls'
