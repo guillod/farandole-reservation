@@ -1,0 +1,18 @@
+{% extends 'basepage.html' %}
+
+{% block title %}Présentation virtuelle de la Crèche Parentale Farandole{% endblock title %}
+
+{% block head_css_page %}
+{% endblock head_css_page %}
+
+{% block footer_javascript_page %}
+{% endblock footer_javascript_page %}
+
+{% block content %}
+
+  <h1 class="mt-5 mb-3 text-center">Présentation virtuelle<br/>de la Crèche Parentale Farandole</h1>
+  <div class="col-lg-8 mx-auto text-center alert alert-danger" role="alert">
+    La présentation virtuelle sera disponible à cette addresse le <strong>{{ slot.date.date }}</strong> de <strong>{{ slot.start_at.time }} à {{ slot.end_at.time }}</strong>.
+  </div>
+
+{% endblock %}

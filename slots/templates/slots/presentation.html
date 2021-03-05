@@ -1,0 +1,166 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Crèche parentale Farandole - Portes ouvertes virtuelles">
+    <meta name="author" content="Crèche Farandole">
+
+    <title>Crèche parentale Farandole - Portes ouvertes virtuelles</title>
+
+	<link rel="stylesheet" href="{% static 'reveal.js/dist/reset.css' %}">
+	<link rel="stylesheet" href="{% static 'reveal.js/dist/reveal.css' %}">
+	<link rel="stylesheet" href="{% static 'reveal.js/dist/theme/black.css' %}" id="theme">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<style>
+		.reveal { font-size: 38px; }
+		.reveal section img {
+			margin:0;
+			border: 0;
+			box-shadow:none;
+		}
+
+		.reveal .slides section[data-vertical-align-top]{
+	        top: 0 !important;
+        }
+        .reveal .slides section[data-vertical-align-bottom]{
+	        top: 95% !important;
+        }
+	</style>
+  </head>
+
+  <body>
+
+	<div class="reveal">
+
+		<div class="slides">
+			<section>
+				<h4>Présentation virtuelle</h4>
+				<h1>Crèche parentale</h1>
+				<img style="width:80%;" data-src="{% static 'media/logo.png' %}">
+				<p>Portes Ouvertes<br/>{{ slot.date.date }} – {{ slot.description }}</p>
+
+				<div id="fullscreen" href="#" style="color:#42affa;margin-top:50px;"><i class="fa fa-arrows-alt"></i></div>
+			</section>
+
+      <section data-background-video="{% static 'media/presentation-av1.webm' %},{% static 'media/presentation-vp9.webm' %},{% static 'media/presentation-h264.mp4' %}" data-background-size="contain">
+      </section>
+
+      <section>
+        <section>
+            <h1>Entrée & Sas</h1>
+        </section>
+        <section data-background-image="{% static 'media/exterieur.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/sas12.jpg' %}" data-background-size="contain"></section>
+      </section>
+
+      <section>
+  			<section>
+  			    <h1>Salle des grands</h1>
+  			</section>
+  			<section data-background-image="{% static 'media/grands1.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/grands2.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/grands3.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/grands4.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/grands5.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/grands67.jpg' %}" data-background-size="contain"></section>
+      </section>
+
+      <section>
+        <section>
+            <h1>Salle des petits</h1>
+        </section>
+        <section data-background-image="{% static 'media/petits1.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/petits2.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/petits3.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/petits4.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/petits5.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/petits6.jpg' %}" data-background-size="contain"></section>
+      </section>
+
+      <section>
+        <section>
+            <h1>Salle de bain<br/>&<br/>Dortoir</h1>
+        </section>
+        <section data-background-image="{% static 'media/sdb12.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/sdb3.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/dortoir12.jpg' %}" data-background-size="contain"></section>
+      </section>
+
+      <section>
+        <section>
+            <h1>Cour extérieure<br/>&<br/>Cuisine</h1>
+        </section>
+        <section data-background-image="{% static 'media/cour1.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/cour2.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/cuisine1.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/cuisine2.jpg' %}" data-background-size="contain"></section>
+      </section>
+
+      <section>
+        <section>
+            <h1>Sous-sol</h1>
+        </section>
+        <section data-background-image="{% static 'media/buanderie.jpg' %}" data-background-size="contain"></section>
+        <section data-background-image="{% static 'media/soussol.jpg' %}" data-background-size="contain"></section>
+      </section>
+
+		</div>
+
+	</div>
+
+	<script src="{% static 'reveal.js/dist/reveal.js' %}"></script>
+
+	<script>
+
+		// Initalization
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			center: true,
+			mouseWheel: true,
+			hash: false,
+			//margin: 0.05,
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+      backgroundTransition: 'slide',
+			width: window.innerHeight<window.innerWidth ? 1280 : 1280*window.innerWidth/window.innerHeight,
+			height: window.innerHeight<window.innerWidth ? 1280*window.innerHeight/window.innerWidth : 1280,
+
+		  multiplex: {
+			  secret: '{{ secret }}',
+			  id: '{{ slot.socketid }}',
+			  url: 'https://multiplex.apps.math.cnrs.fr/'
+		  },
+
+		  dependencies: [
+      { src: 'https://multiplex.apps.math.cnrs.fr/socket.io/socket.io.js', async: true },
+      { src: 'https://multiplex.apps.math.cnrs.fr/{{role}}.js', async: true },
+    ],
+    // Go to next slide event if we are at the end of a stack
+		  keyboard: {
+			  40: 'next', // on down
+			  38: 'prev' // on up
+		  }
+
+		});
+
+		// On change of orientation
+		window.addEventListener('resize', function(event){
+			Reveal.configure({
+				width: window.innerHeight<window.innerWidth ? 1280 : 1280*window.innerWidth/window.innerHeight,
+				height: window.innerHeight<window.innerWidth ? 1280*window.innerHeight/window.innerWidth : 1280,
+			});
+		});
+
+		// Fullscreen
+		var fullscreen = document.getElementById("fullscreen");
+		fullscreen.addEventListener("click", function() {
+			document.body.requestFullscreen();
+		}, false);
+
+	</script>
+
+  </body>
+</html>

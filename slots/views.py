@@ -59,3 +59,34 @@ def delete_reservation(request, reservation_id):
     reservation.delete()
     messages.success(request, "Réservation annulée.")
     return redirect("reservation")
+    
+    
+def info_reservation(request, reservation_id):
+    # get instance
+    reservation = get_object_or_404(Reservation, pk=reservation_id)
+    return render(request, 'slots/info_reservation.html', { 'reservation': reservation })
+    
+def presentation(request, reservation_id):
+    slot = [x for x in Slot.objects.all() if str(x.uuid) == reservation_id]
+    short_slot = [x for x in Slot.objects.all() if x.short_uuid == reservation_id]
+    # master presentation if reservation_id is slot uuid
+    if len(slot) == 1:
+        slot = slot[0]
+        role = 'master'
+        secret = slot.secret
+    # client presentation if reservation_id is short_uuid
+    elif len(short_slot) == 1:
+        slot = short_slot[0]
+        role = 'client'
+        secret = ''
+    # client presentation on reservation uuid
+    else:
+        # get slot instance from reservation uuid
+        reservation = get_object_or_404(Reservation, pk=reservation_id)
+        slot = reservation.slot
+        role = 'client'
+        secret = ''
+    # check time
+    if role == 'client' and not slot.current:
+        return render(request, 'slots/presentation_error.html', { 'slot': slot })
+    return render(request, 'slots/presentation.html', { 'slot': slot, 'secret': secret, 'role': role })

@@ -1,0 +1,47 @@
+{% extends 'basepage.html' %}
+{% load widget_tweaks %}
+{% load my_tags %}
+
+{% block title %}Informations sur la Journée Portes Ouvertes{% endblock title %}
+
+{% block head_css_page %}
+{% endblock head_css_page %}
+
+{% block footer_javascript_page %}
+{% endblock footer_javascript_page %}
+
+{% block content %}
+
+  <h1 class="mt-5 mb-3 text-center">Informations sur la Journée Portes Ouvertes<br/>de la Crèche Parentale Farandole</h1>
+
+  <p>Bonjour {{ reservation.first_name }} {{ reservation.last_name }},</p>
+
+  <p>Vous vous êtes inscrits pour la journée Portes Ouvertes du {{ reservation.slot.date.date }} de la Crèche Parentale Farandole au créneau de <b>{{ reservation.slot.description }}</b>.</p>
+  <p>Nous vous confirmons que les portes ouvertes se dérouleront à la crèche (105 rue Alexandre Dumas, 75020 Paris), ce qui nous permettra d'échanger de vive voix et de vous présenter les locaux. Merci d'avance pour votre ponctualité, les créneaux étant de seulement trente minutes.</p>
+
+  <p>Vous avez la possibilité de modifier ou annuler votre inscription:</p>
+
+  <div class="mb-3 row text-center justify-content-md-center">
+    <div class="col-lg-4">
+      <a class="btn btn-primary btn-lg" href="/{{ reservation.id }}/change">Modifier ma réservation</a>
+    </div>
+    <div class="col-lg-4">
+      <a class="btn btn-danger btn-lg" href="/{{ reservation.id }}/delete">Supprimer ma réservation</a>
+    </div>
+  </div>
+
+  <p>Au plaisir de vous rencontrer,<br/>
+  La Parentale Crèche Farandole</p>
+
+{% endblock %}
+
+<p>Si les mesures sanitaires ne permettent pas une visite physique de la crèche, celle-ci sera remplacée par une <strong>visio-conférence</strong> sur Jitsi Meet <strong>également le {{ reservation.slot.date.date }} à {{ reservation.slot.description }}</strong> avec des parents de la crèche qui vous commenterons en particulier une <strong>présentation virtuelle</strong> de la crèche :</p>
+
+<div class="mb-3 row text-center justify-content-md-center">
+  <div class="col-lg-4">
+    <a class="btn btn-primary btn-lg" href="{{ reservation.slot.visio }}" target="_blank">Accéder à la viso-conférence</a>
+  </div>
+  <div class="col-lg-4">
+    <a class="btn btn-primary btn-lg" href="{{ reservation.slot.presentation_short }}" target="_blank">Accéder à la présentation virtuelle</a>
+  </div>
+</div>
