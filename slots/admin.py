@@ -1,22 +1,29 @@
 from django.contrib import admin
-from django.db.models import Count
-from django.forms import BaseInlineFormSet
 from django.utils.html import format_html
+from django.urls import reverse
 
 from .models import Reservation, Slot
 from .actions import export_as_csv_action, send_email_action
 
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'phone', 'slot', 'creation')
+    list_display = ('name', 'email', 'phone', 'link_slot', 'creation')
     fields = ['first_name', 'last_name', 'email', 'phone', 'slot', 'creation']
     actions = [export_as_csv_action("Exporter en CSV", fields=['id']+fields), send_email_action("Envoyer les emails", template="slots/email2.html")]
+    list_filter = ['slot']
+
+    def link_slot(self, obj):
+        link = reverse("admin:slots_slot_change", args=[obj.slot.id])
+        return format_html('<a href="{0}">{1}</a>', link, obj.slot)
+    link_slot.__name__ = "Créneau"
 
     # Display only to super-users
+    """
     def has_module_permission(self, request):
         if request.user.is_superuser:  # show for super user anyway
             return True
         else:
             return False
+    """
 
 admin.site.register(Reservation, ReservationAdmin)
 
@@ -29,11 +36,11 @@ class ReservationsInline(admin.TabularInline):
 
 class SlotAdmin(admin.ModelAdmin):
 
-    list_display = ('__str__', 'users', 'url_visio', 'url_presentation_short', 'url_presentation')
-    fields = ['description', 'users', 'nb', 'reservation_nb', 'url_visio', 'url_presentation_short', 'url_presentation']
+    list_display = ['__str__', 'users', ] #'url_visio', 'url_presentation_short', 'url_presentation']
+    fields = ['description', 'users', 'nb', 'reservation_nb', ] #'url_visio', 'url_presentation_short', 'url_presentation']
     list_editable = ['users']
-    readonly_fields = ["reservation_nb", 'url_visio', 'url_presentation_short', 'url_presentation']
-    csv_fields = ['description', 'users', 'nb', 'reservation_nb', 'visio', 'presentation_short', 'presentation']
+    readonly_fields = ["reservation_nb", ] #'url_visio', 'url_presentation_short', 'url_presentation']
+    csv_fields = ['description', 'users', 'nb', ] #'reservation_nb', 'visio', 'presentation_short', 'presentation']
     actions = [export_as_csv_action("Exporter en CSV", fields=csv_fields)]
     ordering = ('description',)
     inlines = [ReservationsInline]
@@ -50,5 +57,14 @@ class SlotAdmin(admin.ModelAdmin):
     def url_presentation_short(self, obj):
         return format_html('<a href="{0}" target="_blank">{0}</a>', obj.presentation_short)
     url_presentation_short.__name__ = "Lien présentation publique"
+
+    """
+    # Display only to super-users
+    def has_module_permission(self, request):
+        if request.user.is_superuser:  # show for super user anyway
+            return True
+        else:
+            return False
+    """
 
 admin.site.register(Slot, SlotAdmin)
