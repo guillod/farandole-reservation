@@ -47,14 +47,14 @@ def export_as_csv_action(description="Export selected objects as CSV file", fiel
 def send_email_action(description="Send email", template="slots/email.html"):
     """
     This function send emails to selected persons
-    using the template "slots/email.html"
+    using the default template "slots/email.html"
     """
     def send_email(modeladmin, request, queryset):
 
         with mail.get_connection() as connection:
             for obj in queryset:
                 # email
-                html_message =  render_to_string(template, {'obj': obj, 'path': request.build_absolute_uri('/')})
+                html_message =  render_to_string(template, {'form': obj, 'path': request.build_absolute_uri('/')})
                 msg = mail.EmailMultiAlternatives(
                    subject = "Portes Ouvertes Crèche Farandole",
                    body =  textify(html_message),

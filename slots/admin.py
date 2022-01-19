@@ -8,7 +8,7 @@ from .actions import export_as_csv_action, send_email_action
 class ReservationAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'phone', 'link_slot', 'creation')
     fields = ['first_name', 'last_name', 'email', 'phone', 'slot', 'creation']
-    actions = [export_as_csv_action("Exporter en CSV", fields=['id']+fields), send_email_action("Envoyer les emails", template="slots/email2.html")]
+    actions = [export_as_csv_action("Exporter en CSV", fields=['id']+fields), send_email_action("Envoyer les emails", template="slots/email.html")]
     list_filter = ['slot']
 
     def link_slot(self, obj):
