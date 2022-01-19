@@ -5,9 +5,9 @@
   <body>
     <p>Bonjour {{ form.first_name}} {{ form.last_name }},</p>
 
-    <p>Merci pour votre inscription à la journée Portes Ouvertes du 6 mars 2021 de la Crèche Parentale Farandole.</p>
+    <p>Merci pour votre inscription à la journée Portes Ouvertes du {{ form.slot.date.date }} de la Crèche Parentale Farandole.</p>
     <p>Vous êtes inscrit·e·s pour le créneau de <b>{{ form.slot.description }}</b>.</p>
-    <p>Suivant la situation sanitaire, le rendez-vous sera à la crèche (105 rue Alexandre Dumas, 75020 Paris) ou nous vous enverrons un lien pour un rendez-vous à distance par visio-conférence. Les détails vous seront envoyés par email quelques jours avant.</p>
+    <p>A moins d'un revirement de la situation sanitaire, les portes ouvertes se dérouleront à la crèche (105 rue Alexandre Dumas, 75020 Paris), ce qui nous permettra d'échanger de vive voix et de vous présenter les locaux. Merci d'avance pour votre ponctualité, les créneaux étant de seulement trente minutes.</p>
     <p>Pour toutes questions relatives aux inscriptions, merci de nous contacter par email à l'adresse <a href="mailto:inscription@crechefarandole.com">inscription@crechefarandole.com</a></p>
 
     <p>Pour modifier ou annuler votre réservation:<br>
